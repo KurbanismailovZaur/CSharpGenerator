@@ -24,11 +24,9 @@ namespace Redcode.ScriptsGenerator
 
             index = path.LastIndexOf("Scripts");
 
-            if (index != -1)
-            {
-                if ((index == 0 || path[index - 1] == Path.DirectorySeparatorChar) && (index + "Scripts".Length == path.Length || path[index + "Scripts".Length] == Path.DirectorySeparatorChar))
-                    path = index + "Scripts".Length == path.Length ? string.Empty : path.Substring(index + "Scripts".Length + 1);
-            }
+			
+			
+			// ХАХА Я УДАЛИЛ КУСОК КОДА ТЕПЕРЬ ИЩИ ЕГО
 
             path = path.Replace(Path.DirectorySeparatorChar, '.');
 
@@ -38,6 +36,8 @@ namespace Redcode.ScriptsGenerator
             File.WriteAllText(fullpath, template);
 
             AssetDatabase.Refresh();
+			
+			// чонить
         }
     }
 }
