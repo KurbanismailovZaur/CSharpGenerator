@@ -2,14 +2,13 @@
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
 namespace Redcode.ScriptsGenerator
 {
-    internal class ModificationProcessor : UnityEditor.AssetModificationProcessor
+    internal class ModificationProcessor : AssetModificationProcessor
     {
         public static void OnWillCreateAsset(string path)
         {
-            path = path.Substring(0, path.Length - ".meta".Length).Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            path = path[..^".meta".Length].Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
             if (Path.GetExtension(path) != ".cs")
                 return;
@@ -17,7 +16,7 @@ namespace Redcode.ScriptsGenerator
             var fullpath = Path.Combine(Path.GetDirectoryName(Application.dataPath), path);
             var template = File.ReadAllText(fullpath);
 
-            path = path.Substring(path.IndexOf(Path.DirectorySeparatorChar) + 1);
+            path = path[(path.IndexOf(Path.DirectorySeparatorChar) + 1)..];
 
             var index = path.LastIndexOf(Path.DirectorySeparatorChar);
             path = index == -1 ? string.Empty : path.Substring(0, index);
@@ -41,4 +40,3 @@ namespace Redcode.ScriptsGenerator
         }
     }
 }
-#endif

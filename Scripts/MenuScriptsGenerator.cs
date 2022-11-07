@@ -1,51 +1,37 @@
+using Redcode.CreateMenuContext;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-#if UNITY_EDITOR
 namespace Redcode.ScriptsGenerator
 {
     internal static class MenuScriptsGenerator
     {
         private static void CheckAndCreate(string templateName, string assetName)
         {
+            var settings = Resources.Load<Settings>("Configs/Settings");
+
             #region Templates
-            string namespaces =
-                "using System;\n" +
-                "using System.Collections;\n" +
-                "using System.Collections.Generic;\n" +
-                "using System.Linq;\n" +
-                "using UnityEngine;\n";
+            var before = $"{string.Join("", settings.DefaultUsings.Select(u => $"using {u};\n"))}\n";
+            var tab = settings.GenerateNamespaces ? "\t" : string.Empty;
 
+            if (settings.GenerateNamespaces)
+                before = $"{before}namespace #NAMESPACE#\n{{\n";
 
+            var scriptTemplate = before + $"{tab}public class #SCRIPTNAME# : MonoBehaviour\n{tab}{{\n{tab}}}";
 
-            //var redcodePath = Path.Combine(Application.dataPath, "Redcode");
-            var redcodeDirectiores = Directory.GetDirectories(Application.dataPath, "Redcode", SearchOption.AllDirectories);
-            var redcodePath = redcodeDirectiores.Length >= 1 ? redcodeDirectiores.OrderBy(p => p.Length).FirstOrDefault() : "Redcode";
+            var scriptableObjectTemplate = before + $"{tab}[CreateAssetMenu(menuName = \"Configs/#SCRIPTNAME#\", fileName = \"#SCRIPTNAME#\")]\n";
+            scriptableObjectTemplate += $"{tab}public class #SCRIPTNAME# : ScriptableObject\n{tab}{{\n{tab}}}";
 
-            if (Directory.Exists(Path.Combine(redcodePath, "Extensions")))
-                namespaces += "using Redcode.Extensions;\n";
+            var classTemplate = before + $"{tab}public class #SCRIPTNAME#\n{tab}{{\n{tab}}}";
 
-            if (Directory.Exists(Path.Combine(redcodePath, "Moroutines")))
-                namespaces += "using Redcode.Moroutines;\n" +
-                "using Redcode.Moroutines.Extensions;\n";
+            var structTemplate = before + $"{tab}public struct #SCRIPTNAME#\n{tab}{{\n{tab}}}";
 
-            var before = namespaces + "\nnamespace #NAMESPACE#\n{\n";
+            var interfaceTemplate = before + $"{tab}public interface #SCRIPTNAME#\n{tab}{{\n{tab}}}";
 
-            var scriptTemplate = before + "\tpublic class #SCRIPTNAME# : MonoBehaviour\n\t{\n\t}\n}";
-
-            var scriptableObjectTemplate = before + "\t[CreateAssetMenu(menuName = \"Configs/#SCRIPTNAME#\", fileName = \"#SCRIPTNAME#\")]\n";
-            scriptableObjectTemplate += "\tpublic class #SCRIPTNAME# : ScriptableObject\n\t{\n\t}\n}";
-
-            var classTemplate = before + "\tpublic class #SCRIPTNAME#\n\t{\n\t}\n}";
-
-            var structTemplate = before + "\tpublic struct #SCRIPTNAME#\n\t{\n\t}\n}";
-
-            var interfaceTemplate = before + "\tpublic interface #SCRIPTNAME#\n\t{\n\t}\n}";
-
-            var enumTemplate = before + "\tpublic enum #SCRIPTNAME#\n\t{\n\t}\n}";
+            var enumTemplate = before + $"{tab}public enum #SCRIPTNAME#\n{tab}{{\n{tab}}}";
 
             Dictionary<string, string> tempaltes = new()
             {
@@ -64,7 +50,12 @@ namespace Redcode.ScriptsGenerator
                 Directory.CreateDirectory(templatesPath);
 
             var templatePath = Path.Combine(templatesPath, templateName);
-            File.WriteAllText(templatePath, tempaltes[templateName]);
+
+            var text = tempaltes[templateName];
+            if (settings.GenerateNamespaces)
+                text = $"{text}\n}}";
+
+            File.WriteAllText(templatePath, text);
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, assetName);
         }
@@ -88,4 +79,3 @@ namespace Redcode.ScriptsGenerator
         private static void CreateEnum() => CheckAndCreate("EnumTemplate.txt", "NewEnum.cs");
     }
 }
-#endif
