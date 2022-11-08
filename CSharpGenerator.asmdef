@@ -1,5 +1,5 @@
 {
-    "name": "ScriptsGenerator",
+    "name": "CSharpGenerator",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [
