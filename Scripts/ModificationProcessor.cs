@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Redcode.ScriptsGenerator
+namespace Redcode.CreateMenuContext
 {
     internal class ModificationProcessor : AssetModificationProcessor
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Redcode.CreateMenuContext
 {
-    [CreateAssetMenu(menuName = "Configs/Settings", fileName = "Settings")]
+    //[CreateAssetMenu(menuName = "Configs/Settings", fileName = "Settings")]
     public class Settings : ScriptableObject
     {
         [SerializeField]

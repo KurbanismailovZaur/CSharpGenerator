@@ -5,13 +5,13 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Redcode.ScriptsGenerator
+namespace Redcode.CreateMenuContext
 {
     internal static class MenuScriptsGenerator
     {
         private static void CheckAndCreate(string templateName, string assetName)
         {
-            var settings = Resources.Load<Settings>("Configs/Settings");
+            var settings = Resources.Load<Settings>("Redcode/CreateMenuContext/Settings");
 
             #region Templates
             var before = $"{string.Join("", settings.DefaultUsings.Select(u => $"using {u};\n"))}\n";

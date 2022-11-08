@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b19274dbe412b4cb074303a2414b7a, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  _usings:
+  _generateNamespaces: 1
+  _defaultUsings:
   - System
   - System.Collections
   - System.Collections.Generic
