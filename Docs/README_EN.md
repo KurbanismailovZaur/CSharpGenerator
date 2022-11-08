@@ -14,13 +14,13 @@ To use the desired template use the `Assets` > `Create` menu, or right-click in 
 
 ![image](https://user-images.githubusercontent.com/5365111/200543731-31f671be-95ce-4440-97a4-0cf27a0a20f5.png)
 
-You can set up pluggable namespaces and their generation in code files by calling `Windows` menu > `Create Menu Context` > `Settings`.
+You can set up pluggable namespaces and their generation in code files by calling `Windows` menu > `C# Generator` > `Settings`.
 
-![image](https://user-images.githubusercontent.com/5365111/200544523-ae43f1b5-d193-45dd-9247-d6b10e498a67.png)
+![image](https://user-images.githubusercontent.com/5365111/200572355-a7a55c1a-013a-42c1-818f-7ae653af6709.png)
 
 In the window that appears, you will see the namespace generation settings.
 
-![image](https://user-images.githubusercontent.com/5365111/200544684-1d906d96-630e-4749-aee9-d154e165beea.png)
+![image](https://user-images.githubusercontent.com/5365111/200572458-f158daec-6c00-4de2-a9e4-26e8711a38f7.png)
 
 - `Generate Namespaces` - responsible for generating the namespace when creating the code file. The generated namespace depends on the location of the file in the hierarchy.
   - If the `Scripts` folder is present in the path of the code file, then it will be considered the starting point for generating the namespace, but instead of the `Scripts` folder, the name of the project will be inserted into the namespace.

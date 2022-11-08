@@ -20,3 +20,4 @@ MonoBehaviour:
   - System.Linq
   - UnityEngine
   - UnityRandom = UnityEngine.Random
+  - Redcode.Extensions
