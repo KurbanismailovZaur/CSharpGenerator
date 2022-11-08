@@ -11,7 +11,7 @@ namespace Redcode.CreateMenuContext
     {
         private static void CheckAndCreate(string templateName, string assetName)
         {
-            var settings = Resources.Load<Settings>("Redcode/CreateMenuContext/Settings");
+            var settings = Resources.Load<Settings>("Redcode/CSharpGenerator/Settings");
 
             #region Templates
             var before = $"{string.Join("", settings.DefaultUsings.Select(u => $"using {u};\n"))}\n";

@@ -11,20 +11,20 @@ namespace Redcode.CreateMenuContext
         private static Settings _settings;
         private static Editor _settingsEditor;
 
-        [MenuItem("Window/Create Menu Context/Settings")]
+        [MenuItem("Window/C# Generator/Settings")]
         private static void ShowWindow()
         {
             if (_window != null)
                 return;
 
             _window = (CreateMenuContextWindow)GetWindow(typeof(CreateMenuContextWindow));
-            _window.titleContent = new GUIContent("Create Menu Context Settings");
+            _window.titleContent = new GUIContent("C# Generator Settings");
             _window.Show();
         }
 
         private void OnEnable()
         {
-            _settings = Resources.Load<Settings>("Redcode/CreateMenuContext/Settings");
+            _settings = Resources.Load<Settings>("Redcode/CSharpGenerator/Settings");
             _settingsEditor = Editor.CreateEditor(_settings);
         }
 
