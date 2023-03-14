@@ -8,13 +8,13 @@ namespace Redcode.CreateMenuContext
 {
     internal class NamespaceGenerator
     {
-        [MenuItem("Assets/Namespace/Change", priority = 18)]
-        private static void ChangeNamespace() => Change(false);
+        [MenuItem("Assets/Namespace/Generate", priority = 18)]
+        private static void GenerateNamespace() => Generate(false);
 
-        [MenuItem("Assets/Namespace/Change Force", priority = 18)]
-        private static void ChangeNamespaceForce() => Change(true);
+        [MenuItem("Assets/Namespace/Generate Force", priority = 18)]
+        private static void GenerateNamespaceForce() => Generate(true);
 
-        private static void Change(bool forceChange)
+        private static void Generate(bool forceChange)
         {
             var paths = GetSelectionAssetsPath();
             var pathToFiles = new List<string>();
@@ -32,13 +32,15 @@ namespace Redcode.CreateMenuContext
                 if(path.IsCSharpFile())
                     SetNamespace(path, forceChange);
             }
+
+            AssetDatabase.Refresh();
         }
 
-        [MenuItem("Assets/Namespace/Change", true)]
-        private static bool ChangeNamespaceValid() => IsValidChangeNamespace();
+        [MenuItem("Assets/Namespace/Generate", true)]
+        private static bool GenerateNamespaceValid() => IsValidChangeNamespace();
 
-        [MenuItem("Assets/Namespace/Change Force", true)]
-        private static bool ChangeNamespaceForceValid() => IsValidChangeNamespace();
+        [MenuItem("Assets/Namespace/Generate Force", true)]
+        private static bool GenerateNamespaceForceValid() => IsValidChangeNamespace();
             
         private static bool IsValidChangeNamespace() => GetSelectionAssetsPath().Any(x => x.IsDirectory() || x.IsCSharpFile());
 
@@ -77,7 +79,6 @@ namespace Redcode.CreateMenuContext
             var namespaceLine = $"{@namespace} {path.GenerateNamespace()}";
             var text = GetScriptText(path, scriptLines, lineIndexForAddNamespace, isContainsNamespace, namespaceLine, forceChange);
             File.WriteAllText(path, text);
-            AssetDatabase.Refresh();
         }
 
         private static string[] GetSelectionAssetsPath()
