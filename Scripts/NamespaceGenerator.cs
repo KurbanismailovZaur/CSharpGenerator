@@ -8,10 +8,10 @@ namespace Redcode.CreateMenuContext
 {
     internal class NamespaceGenerator
     {
-        [MenuItem("Assets/Namespace/Generate", priority = 18)]
+        [MenuItem("Assets/Generate/Namespaces For Selected C# Scripts", priority = 18)]
         private static void GenerateNamespace() => Generate(false);
 
-        [MenuItem("Assets/Namespace/Generate Force", priority = 18)]
+        [MenuItem("Assets/Generate/Namespaces For Selected C# Scripts (Forced)", priority = 18)]
         private static void GenerateNamespaceForce() => Generate(true);
 
         private static void Generate(bool forceChange)
@@ -62,11 +62,11 @@ namespace Redcode.CreateMenuContext
                 if (line.StartsWith(@namespace))
                 {
                     isContainsNamespace = true;
-                    goto Found;
+                    break;
                 }
 
                 if (line.StartsWith('['))
-                    goto Found;
+                    break;
 
                 foreach (var type in scriptTypes)
                 {
