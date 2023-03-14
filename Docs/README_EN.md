@@ -67,4 +67,11 @@ public class Car2 : MonoBehavior
 
 Namespace generation across folders keeps the code architecture clean, you don't have to come up with names for the namespaces, instead come up with proper folder names. In the future, when your project grows to a gigantic size, it will be easier for you to navigate it, since the names of folders and namespaces in the code files will match and have meaningful names.
 
+## Regenerate namespaces in existing files
+If you already have code files and want to generate new namespaces for them, then in the project window you can use the context menu `Generate` > `Namespaces For Selected C# Scripts`, this will start the process of generating namespaces for the selected files, in which no namespaces. You can also call this context menu on a folder, which will start a recursive regeneration process for all scripts in it and in its folders.
+
+![image](https://user-images.githubusercontent.com/5365111/225165120-eefe9a39-2275-437d-aac8-7c20adce9979.png)
+
+If you need to regenerate namespaces for scripts in which it already exists, use the context menu `Generate` > `Namespaces For Selected C# Scripts (Forced)`.
+
 Good luck!
